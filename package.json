@@ -1,0 +1,20 @@
+{
+    "name": "hatpepper",
+    "version": "1.0.0",
+    "description": "Console application to search nearby restaurants using Recruit Gourmet Search API",
+    "main": "dist/Program.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "npm run build && node dist/Program.js",
+        "dev": "ts-node src/Program.ts"
+    },
+    "dependencies": {
+        "axios": "^1.4.0",
+        "dotenv": "^16.0.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20.17.45",
+        "ts-node": "^10.9.1",
+        "typescript": "^5.1.6"
+    }
+}
