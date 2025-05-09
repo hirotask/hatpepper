@@ -4,13 +4,13 @@
 - 「リクルートWebサービス」の「グルメサーチAPI」を利用
 
 
-- **Program**: エントリーポイント。`SearchRestaurantController` を生成し、実行を開始する。
-- **SearchRestaurantController**: プレゼンテーション層とユースケース層の橋渡しを担当するコントローラー。
-- **SearchRestaurant**: アプリケーション（ユースケース）層。位置情報取得と外部サービス呼び出しをまとめる。
-- **GeoCoordinator**: デバイスゲートウェイ。端末の位置情報を返す。
-- **GourmetService**: Hotpepper API ゲートウェイ。グルメ情報を取得する。
-- **Location / GourmetSearchResult**: ドメインのレコード。データ構造を定義する。
-- **RestaurantViewModel / SearchRestaurantView**: プレゼンテーション層。ユースケースの結果をビュー向けに変換・描画する。
+- **Program**: アプリケーションのエントリーポイントで、`SearchRestaurantController` のインスタンスを生成し、検索処理を開始します。
+- **SearchRestaurantController**: ユーザー入力を受け取り、検索ユースケース(`SearchRestaurant`)を実行し、その結果をビュー向けに変換して表示する役割を担います。
+- **SearchRestaurant**: アプリケーション層（ユースケース）にあたり、現在地の取得と外部のHotpepper API呼び出しをまとめて実行し、検索結果を返します。
+- **GeoCoordinator**: デバイスゲートウェイとして、端末のGPSやOS API、ユーザーからの入力を使って現在の緯度・経度を取得します。
+- **GourmetService**: Hotpepper APIゲートウェイとして、渡された位置情報をもとに周辺店舗のデータ（名称、住所、ジャンルなど）を外部サービスから取得します。
+- **Location / GourmetSearchResult**: ドメインモデルのレコード型。`Location` は緯度・経度などの位置情報を定義し、`GourmetSearchResult` はAPIから取得した店舗情報の構造を定義します。
+- **RestaurantViewModel / SearchRestaurantView**: プレゼンテーション層で、ユースケースからの出力を画面表示用に変換する`RestaurantViewModel`と、コンソールに結果を描画する`SearchRestaurantView`で構成されます。
 
 
 
