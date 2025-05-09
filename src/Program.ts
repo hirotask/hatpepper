@@ -5,7 +5,7 @@ import { SearchRestaurantController } from './controller/SearchRestaurantControl
 async function main(): Promise<void> {
     try {
         const controller = new SearchRestaurantController()
-        await controller.findNearbyAsync()
+        await controller.controll()
     } catch (err) {
         console.error('エラーが発生したのだ:', err)
         process.exit(1)

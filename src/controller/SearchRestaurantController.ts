@@ -12,7 +12,7 @@ export class SearchRestaurantController {
         this.view = new SearchRestaurantView()
     }
 
-    async findNearbyAsync(): Promise<void> {
+    async controll(): Promise<void> {
         const result = await this.useCase.findNearbyAsync()
         const viewModel = toViewModel(result)
         this.view.show(viewModel)
