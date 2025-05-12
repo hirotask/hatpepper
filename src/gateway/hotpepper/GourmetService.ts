@@ -1,7 +1,103 @@
 // src/gateway/hotpepper/GourmetService.ts
 import axios from 'axios'
-import { Location } from '../../record/Location'
-import { GourmetSearchResult } from '../../record/GourmetSearchResult'
+import { Location } from '../device/GeoCoordinator'
+
+export interface HotPepperGourmetResponse {
+  results: {
+    api_version: string;
+    results_available: number;
+    results_returned: number;
+    results_start: number;
+    shop: Shop[];
+  };
+}
+
+export interface Shop {
+  id: string;
+  name: string;
+  name_kana: string;
+  address: string;
+  station_name: string;
+  lat: string;
+  lng: string;
+  genre: Genre;
+  budget: Budget;
+  open: string;
+  close: string;
+  party_capacity: string;
+  capacity: string;
+  card: string;
+  non_smoking: string;
+  private_room: string;
+  horigotatsu: string;
+  tatami: string;
+  course: string;
+  free_drink: string;
+  free_food: string;
+  lunch: string;
+  midnight: string;
+  english: string;
+  pet: string;
+  child: string;
+  parking: string;
+  barrier_free: string;
+  karaoke: string;
+  band: string;
+  tv: string;
+  show: string;
+  wifi: string;
+  charter: string;
+  wedding: string;
+  urls: {
+    pc: string;
+  };
+  coupon_urls: {
+    pc: string;
+    sp: string;
+  };
+  photo: {
+    pc: {
+      l: string;
+      m: string;
+      s: string;
+    };
+    mobile: {
+      l: string;
+      s: string;
+    };
+  };
+  large_area: Area;
+  service_area: Area;
+  large_service_area: Area;
+  middle_area: Area;
+  small_area: Area;
+  catch: string;
+  other_memo: string;
+  shop_detail_memo: string;
+  logo_image: string;
+  ktai_coupon: string;
+  mobile_access: string;
+  access: string;
+  budget_memo: string;
+}
+
+export interface Genre {
+  name: string;
+  catch: string;
+  code: string;
+}
+
+export interface Budget {
+  code: string;
+  name: string;
+  average: string;
+}
+
+export interface Area {
+  code: string;
+  name: string;
+}
+
 
 const ENDPOINT = 'https://webservice.recruit.co.jp/hotpepper/gourmet/v1/'
 
@@ -16,21 +112,11 @@ export class GourmetService {
         this.apiKey = key
     }
 
-    async findNearbyAsync(location: Location): Promise<GourmetSearchResult> {
+    async findNearbyAsync(location: Location): Promise<HotPepperGourmetResponse> {
 		const endpoint = `${ENDPOINT}?key=${this.apiKey}&lat=${location.latitude}&lng=${location.longitude}&range=3&format=json`
         const response = await axios.get(endpoint)
         const data = response.data
-        const gourmets = data.results.shop.map((shop: any) => ({
-            id: shop.id,
-            name: shop.name,
-            address: shop.address,
-            latitude: parseFloat(shop.lat),
-            longitude: parseFloat(shop.lng)
-        }))
-        return {
-            resultsReturned: data.results.results_returned,
-            resultsAvailable: data.results.results_available,
-            gourmets
-        }
+
+		return data
     }
 }

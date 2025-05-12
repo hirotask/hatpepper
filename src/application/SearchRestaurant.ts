@@ -1,8 +1,6 @@
 // src/application/SearchRestaurant.ts
-import { Location } from '../record/Location'
-import { GourmetSearchResult } from '../record/GourmetSearchResult'
-import { GeoCoordinator } from '../gateway/device/GeoCoordinator'
-import { GourmetService } from '../gateway/hotpepper/GourmetService'
+import { GeoCoordinator, Location } from '../gateway/device/GeoCoordinator'
+import { GourmetService, HotPepperGourmetResponse } from '../gateway/hotpepper/GourmetService'
 
 export class SearchRestaurant {
     private geo: GeoCoordinator
@@ -13,7 +11,7 @@ export class SearchRestaurant {
         this.service = new GourmetService()
     }
 
-    async findNearbyAsync(): Promise<GourmetSearchResult> {
+    async findNearbyAsync(): Promise<HotPepperGourmetResponse> {
         const location: Location = await this.geo.getCurrent()
         return await this.service.findNearbyAsync(location)
     }

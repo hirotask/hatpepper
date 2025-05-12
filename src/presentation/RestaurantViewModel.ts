@@ -1,6 +1,6 @@
-// src/presentation/RestaurantViewModel.ts
-import { GourmetSearchResult } from '../record/GourmetSearchResult'
+import { HotPepperGourmetResponse } from "../gateway/hotpepper/GourmetService"
 
+// src/presentation/RestaurantViewModel.ts
 export interface RestaurantViewModel {
     resultsReturned: number
     resultsAvailable: number
@@ -13,16 +13,16 @@ export interface RestaurantViewModel {
     }[]
 }
 
-export function toViewModel(data: GourmetSearchResult): RestaurantViewModel {
+export function toViewModel(data: HotPepperGourmetResponse): RestaurantViewModel {
     return {
-        resultsReturned: data.resultsReturned,
-        resultsAvailable: data.resultsAvailable,
-        list: data.gourmets.map(g => ({
+        resultsReturned: data.results.results_returned,
+        resultsAvailable: data.results.results_available,
+        list: data.results.shop.map(g => ({
             id: g.id,
             name: g.name,
             address: g.address,
-            latitude: g.latitude,
-            longitude: g.longitude
+            latitude: parseInt(g.lat),
+            longitude: parseInt(g.lng)
         }))
     }
 }
