@@ -1,4 +1,4 @@
-import { Restaurant } from "../application/Restaurant"
+import { Restaurant } from "../application/domain"
 
 // src/presentation/RestaurantViewModel.ts
 export interface RestaurantViewModel {

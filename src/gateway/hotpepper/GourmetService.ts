@@ -1,8 +1,6 @@
 // src/gateway/hotpepper/GourmetService.ts
 import axios from 'axios'
-import type { Location } from '../device/GeoCoordinator'
-import type { Restaurant } from '../../application/Restaurant';
-import type { IGourmetService } from '../../application/IGourmetService';
+import { IGourmetService, Restaurant, Location } from '../../application/domain';
 
 export interface HotPepperGourmetResponse {
   results: {

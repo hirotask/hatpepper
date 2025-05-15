@@ -1,7 +1,6 @@
 // src/gateway/device/GeoCoordinator.ts
 import readline from 'readline'
-import { Location } from '../../application/Location'
-import { IGeoCoordinator } from '../../application/IGeoCoordinator'
+import { IGeoCoordinator, Location } from '../../application/domain'
 
 export class GeoCoordinator implements IGeoCoordinator {
     async getCurrent(): Promise<Location> {

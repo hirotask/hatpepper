@@ -1,14 +1,12 @@
 // src/application/SearchRestaurant.ts
-import { GeoCoordinator, Location } from '../gateway/device/GeoCoordinator'
-import { IGourmetService } from './IGourmetService'
-import { Restaurant } from './Restaurant'
+import { IGeoCoordinator, IGourmetService, Restaurant, Location } from "./domain"
 
 export class SearchRestaurant {
-    private geo: GeoCoordinator
+    private geo: IGeoCoordinator
     private service: IGourmetService
 
     constructor(
-		geo: GeoCoordinator,
+		geo: IGeoCoordinator,
 		service: IGourmetService
 	) {
 		this.geo = geo
