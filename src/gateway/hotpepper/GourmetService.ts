@@ -1,6 +1,7 @@
 // src/gateway/hotpepper/GourmetService.ts
 import axios from 'axios'
 import { Location } from '../device/GeoCoordinator'
+import { Restaurant } from '../../application/Restaurant';
 
 export interface HotPepperGourmetResponse {
   results: {
@@ -112,11 +113,27 @@ export class GourmetService {
         this.apiKey = key
     }
 
-    async findNearbyAsync(location: Location): Promise<HotPepperGourmetResponse> {
-		const endpoint = `${ENDPOINT}?key=${this.apiKey}&lat=${location.latitude}&lng=${location.longitude}&range=3&format=json`
-        const response = await axios.get(endpoint)
-        const data = response.data
+    private convertToRestaurant(response: HotPepperGourmetResponse): Restaurant[] {
+        if (response.results.results_returned === 0) {
+            return []
+        }
+        return response.results.shop.map((shop) => ({
+            name: shop.name,
+            genre: shop.genre.name,
+            address: shop.address,
+            latitude: parseFloat(shop.lat),
+            longitude: parseFloat(shop.lng)
+        }))
+    }
 
-		return data
+
+    async findNearbyAsync(location: Location): Promise<Restaurant[]> {
+        const endpoint = `${ENDPOINT}?key=${this.apiKey}&lat=${location.latitude}&lng=${location.longitude}&range=3&format=json`
+        const response = await axios.get(endpoint)
+        const data: HotPepperGourmetResponse = response.data
+
+        const restaurants = this.convertToRestaurant(data)
+
+        return restaurants
     }
 }
