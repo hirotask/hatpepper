@@ -1,12 +1,9 @@
 // src/gateway/device/GeoCoordinator.ts
 import readline from 'readline'
+import { Location } from '../../application/Location'
+import { IGeoCoordinator } from '../../application/IGeoCoordinator'
 
-export interface Location {
-	latitude: number
-	longitude: number
-}
-
-export class GeoCoordinator {
+export class GeoCoordinator implements IGeoCoordinator {
     async getCurrent(): Promise<Location> {
         const rl = readline.createInterface({
             input: process.stdin,
