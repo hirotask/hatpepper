@@ -1,7 +1,8 @@
 // src/gateway/hotpepper/GourmetService.ts
 import axios from 'axios'
-import { Location } from '../device/GeoCoordinator'
-import { Restaurant } from '../../application/Restaurant';
+import type { Location } from '../device/GeoCoordinator'
+import type { Restaurant } from '../../application/Restaurant';
+import type { IGourmetService } from '../../application/IGourmetService';
 
 export interface HotPepperGourmetResponse {
   results: {
@@ -102,7 +103,7 @@ export interface Area {
 
 const ENDPOINT = 'https://webservice.recruit.co.jp/hotpepper/gourmet/v1/'
 
-export class GourmetService {
+export class GourmetService implements IGourmetService {
     private apiKey: string
 
     constructor() {
